@@ -5,9 +5,6 @@ WORKDIR /app
 # Install pnpm
 RUN npm i -g pnpm@8.6.10
 
-# Copy patches
-COPY ./patches ./patches
-
 # Copy root package.json + pnpm-lock.yaml + pnpm-workspace.yaml
 COPY pnpm-lock.yaml package.json pnpm-workspace.yaml ./
 

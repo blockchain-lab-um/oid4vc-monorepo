@@ -7,9 +7,6 @@ WORKDIR /app
 # Install pnpm
 RUN npm i -g pnpm@8.6.10
 
-# Copy patches
-COPY --from=builder /app/patches ./patches
-
 COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/package.json ./package.json
