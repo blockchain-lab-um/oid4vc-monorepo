@@ -1,0 +1,53 @@
+name: Issuer deploy/build action
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'apps/issuer/**'
+      - 'Dockerfile'
+      - .github/workflows/deploy_issuer.yml
+  push:
+    branches: [main]
+    paths:
+      - 'packages/issuer/**'
+      - 'Dockerfile'
+      - .github/workflows/deploy_issuer.yml
+
+jobs:
+  deploy:
+    # Deploy when we PUSH to MAIN
+    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'push') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Build blockchain-lab-um/oid4vc-monorepo
+        run: docker build . -t blockchain-lab-um/oid4vc-monorepo
+      - name: Build blockchain-lab-um/oid4vc-issuer
+        run: docker build ./apps/issuer -t blockchain-lab-um/oid4vc-issuer
+      - name: Change image tag
+        run: docker tag blockchain-lab-um/oid4vc-issuer:latest bclabum.informatika.uni-mb.si/registry/issuer:latest
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: bclabum.informatika.uni-mb.si/registry
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Push to private docker registry
+        run: docker push bclabum.informatika.uni-mb.si/registry/issuer:latest
+  test-build:
+    # Test build on every PR to MAIN
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Build blockchain-lab-um/oid4vc-monorepo
+        run: docker build . -t blockchain-lab-um/oid4vc-monorepo
+      - name: Build blockchain-lab-um/oid4vc-issuer
+        run: docker build ./apps/issuer -t blockchain-lab-um/oid4vc-issuer
