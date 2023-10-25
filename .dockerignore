@@ -1,0 +1,15 @@
+**/node_modules
+**/.env*.local
+**/coverage
+**/*.md
+**/LICENSE
+**/Dockerfile
+**/.next
+**/dist
+**/build
+**/out
+
+# Don't ignore docs markdown files
+!packages/docs/**/*.md
+database.oidc-demo.issuer
+database.oidc-demo.verifier

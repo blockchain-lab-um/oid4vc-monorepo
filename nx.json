@@ -1,0 +1,63 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "test:ci", "test:cron"]
+      }
+    }
+  },
+  "extends": "nx/presets/npm.json",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "affected": {
+    "defaultBase": "origin/develop"
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/tests/**/*",
+      "!{projectRoot}/sonar-project.properties",
+      "!{projectRoot}/coverage/**/*",
+      "!{projectRoot}/dist/**/*",
+      "!{projectRoot}/.docusaurus/**/*",
+      "!{projectRoot}/.next/**/*",
+      "!{projectRoot}/jest.config.ts",
+      "!{projectRoot}/.lintstagedrc.cjs",
+      "!{projectRoot}/Dockerfile",
+      "!{projectRoot}/.prettierignore",
+      "!{projectRoot}/.env.*"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": ["production", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "lint": {
+      "inputs": ["default", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint:fix": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "inputs": ["default", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test:ci": {
+      "inputs": ["default", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/coverage"]
+    },
+    "test:cron": {
+      "inputs": ["default", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/coverage"]
+    }
+  },
+  "defaultBase": "develop"
+}

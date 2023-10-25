@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    /*
+      Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects
+      for all imports. Implies 'allowSyntheticDefaultImports'.
+    */
+    "target": "ES2020",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+
+    "strict": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+
+    /* Stylize errors and messages using color and context. */
+    "pretty": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "files": ["jest.d.ts"]
+}
