@@ -110,7 +110,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
       client_id: clientId,
       redirect_uri: redirectUri,
       nonce,
-      presentation_definition: presentationDefinition,
+      presentation_definition: JSON.stringify(presentationDefinition),
       state,
     };
 

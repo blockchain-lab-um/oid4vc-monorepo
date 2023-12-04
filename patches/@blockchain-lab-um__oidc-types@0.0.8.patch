@@ -1,0 +1,13 @@
+diff --git a/dist/authorization.d.ts b/dist/authorization.d.ts
+index 2d9c1a0465f5b498d9bf0526f01dccaa9138ccb0..478d2aef60577e52d257f2e6865b1c630c773a14 100644
+--- a/dist/authorization.d.ts
++++ b/dist/authorization.d.ts
+@@ -4,7 +4,7 @@ import { AuthorizationRequestOAuth2, AuthorizationResponseOAuth2 } from './oauth
+ interface AuthorizationRequest extends Omit<AuthorizationRequestOAuth2, 'response_type'> {
+     response_type: 'id_token' | 'vp_token' | 'code' | 'vp_token id_token';
+     nonce: string;
+-    presentation_definition?: PresentationDefinition;
++    presentation_definition?: string;
+     presentation_definition_uri?: string;
+     authorization_details?: string;
+     client_metadata?: string;

@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@blockchain-lab-um/oidc-types@0.0.8':
+    hash: vriiu65bsmjz5mxscrk7qmuovi
+    path: patches/@blockchain-lab-um__oidc-types@0.0.8.patch
+
 importers:
 
   .:
@@ -109,7 +114,7 @@ importers:
         version: link:../../libs/rp-plugin
       '@blockchain-lab-um/oidc-types':
         specifier: 0.0.8
-        version: 0.0.8
+        version: 0.0.8(patch_hash=vriiu65bsmjz5mxscrk7qmuovi)
       '@blockchain-lab-um/utils':
         specifier: 1.3.7
         version: 1.3.7
@@ -266,7 +271,7 @@ importers:
         version: link:../../libs/rp-plugin
       '@blockchain-lab-um/oidc-types':
         specifier: 0.0.8
-        version: 0.0.8
+        version: 0.0.8(patch_hash=vriiu65bsmjz5mxscrk7qmuovi)
       '@fastify/formbody':
         specifier: ^7.4.0
         version: 7.4.0
@@ -411,7 +416,7 @@ importers:
     dependencies:
       '@blockchain-lab-um/oidc-types':
         specifier: 0.0.8
-        version: 0.0.8
+        version: 0.0.8(patch_hash=vriiu65bsmjz5mxscrk7qmuovi)
       '@sphereon/pex':
         specifier: 2.0.1
         version: 2.0.1
@@ -1941,13 +1946,14 @@ packages:
       - supports-color
     dev: false
 
-  /@blockchain-lab-um/oidc-types@0.0.8:
+  /@blockchain-lab-um/oidc-types@0.0.8(patch_hash=vriiu65bsmjz5mxscrk7qmuovi):
     resolution: {integrity: sha512-ktvLbJA26FZwjjICGqe++Qe6gvDcoGUl5adHDx5KBNxkT+L8lp6caXt1NgYqhNfDsQuJg4syK8s33cMmlTXOSQ==}
     dependencies:
       '@veramo/core': 5.4.1
     transitivePeerDependencies:
       - supports-color
     dev: false
+    patched: true
 
   /@blockchain-lab-um/utils@1.3.7:
     resolution: {integrity: sha512-0SY3/wd5qT+kS8dcYZCY4QJgciIwoqYbvHpeQ9FfiDMNkoh4bdHFDbJ+z3cd9OGwUzcp+FAruzEA8yHopz99Qw==}

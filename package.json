@@ -78,7 +78,9 @@
     "pnpm": "8.6.10"
   },
   "pnpm": {
-    "patchedDependencies": {},
+    "patchedDependencies": {
+      "@blockchain-lab-um/oidc-types@0.0.8": "patches/@blockchain-lab-um__oidc-types@0.0.8.patch"
+    },
     "allowNonAppliedPatches": true
   }
 }
