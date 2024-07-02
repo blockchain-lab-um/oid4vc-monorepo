@@ -1,8 +1,8 @@
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
-import { IConfig } from '../../config/configuration.js';
-import {
+import type { IConfig } from '../../config/configuration.js';
+import type {
   UserSession,
   UserSessionStore,
   VerificationResults,
@@ -39,7 +39,7 @@ export class DatastoreService {
   createVerificationResults(
     id: string,
     verificationResults: boolean,
-    error?: string
+    error?: string,
   ): void {
     this.verificationResultsStore[id] = {
       data: {

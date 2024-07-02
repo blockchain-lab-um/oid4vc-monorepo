@@ -25,7 +25,6 @@
       "!{projectRoot}/jest.config.ts",
       "!{projectRoot}/.lintstagedrc.cjs",
       "!{projectRoot}/Dockerfile",
-      "!{projectRoot}/.prettierignore",
       "!{projectRoot}/.env.*"
     ]
   },
@@ -39,9 +38,6 @@
       "inputs": ["default", "^production"],
       "dependsOn": ["^build"],
       "outputs": []
-    },
-    "lint:fix": {
-      "dependsOn": ["^build"]
     },
     "test": {
       "inputs": ["default", "^production"],

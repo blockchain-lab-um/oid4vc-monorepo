@@ -1,6 +1,6 @@
 import elliptic from 'elliptic';
 
-import { Result } from './result.js';
+import type { Result } from './result.js';
 
 const { ec: EC } = elliptic;
 
@@ -16,7 +16,7 @@ export interface PrivateKeyToDidResponse {
 }
 
 export const privateKeyToDid = async (
-  args: PrivateKeyToDidArgs
+  args: PrivateKeyToDidArgs,
 ): Promise<Result<PrivateKeyToDidResponse>> => {
   const { privateKey, didMethod } = args;
   const ctx = new EC('secp256k1');

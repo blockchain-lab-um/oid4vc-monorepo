@@ -1,21 +1,24 @@
-import { IOIDCRPPlugin, OIDCRPPlugin } from '@blockchain-lab-um/oidc-rp-plugin';
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import {
+  type IOIDCRPPlugin,
+  OIDCRPPlugin,
+} from '@blockchain-lab-um/oidc-rp-plugin';
+import { Injectable } from '@nestjs/common';
+import type { ConfigService } from '@nestjs/config';
+import {
+  type ICredentialPlugin,
+  type IDIDManager,
+  type IKeyManager,
+  type IResolver,
+  type TAgent,
   createAgent,
-  ICredentialPlugin,
-  IDIDManager,
-  IKeyManager,
-  IResolver,
-  TAgent,
 } from '@veramo/core';
 import {
   CredentialIssuerEIP712,
-  ICredentialIssuerEIP712,
+  type ICredentialIssuerEIP712,
 } from '@veramo/credential-eip712';
 import {
   CredentialIssuerLD,
-  ICredentialIssuerLD,
+  type ICredentialIssuerLD,
   LdDefaultContexts,
   VeramoEcdsaSecp256k1RecoverySignature2020,
   VeramoEd25519Signature2018,
@@ -25,12 +28,12 @@ import {
   DIDStore,
   Entities,
   KeyStore,
-  migrations,
   PrivateKeyStore,
+  migrations,
 } from '@veramo/data-store';
 import { DIDManager } from '@veramo/did-manager';
 import { EthrDIDProvider } from '@veramo/did-provider-ethr';
-import { getDidKeyResolver, KeyDIDProvider } from '@veramo/did-provider-key';
+import { KeyDIDProvider, getDidKeyResolver } from '@veramo/did-provider-key';
 import { DIDResolverPlugin } from '@veramo/did-resolver';
 import { KeyManager } from '@veramo/key-manager';
 import { KeyManagementSystem, SecretBox } from '@veramo/kms-local';
@@ -38,7 +41,7 @@ import { Resolver } from 'did-resolver';
 import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 import { DataSource } from 'typeorm';
 
-import { IConfig } from '../../config/configuration.js';
+import type { IConfig } from '../../config/configuration.js';
 
 @Injectable()
 export class AgentService {
@@ -72,13 +75,13 @@ export class AgentService {
         {
           name: 'mainnet',
           rpcUrl: `https://mainnet.infura.io/v3/${this.configService.get<string>(
-            'INFURA_PROJECT_ID'
+            'INFURA_PROJECT_ID',
           )}`,
         },
         {
           name: 'goerli',
           rpcUrl: `https://goerli.infura.io/v3/${this.configService.get<string>(
-            'INFURA_PROJECT_ID'
+            'INFURA_PROJECT_ID',
           )}`,
         },
       ],
@@ -101,9 +104,9 @@ export class AgentService {
               new PrivateKeyStore(
                 this.dbConnection,
                 new SecretBox(
-                  this.configService.get<string>('VERIFIER_DB_SECRET')
-                )
-              )
+                  this.configService.get<string>('VERIFIER_DB_SECRET'),
+                ),
+              ),
             ),
           },
         }),
@@ -133,10 +136,10 @@ export class AgentService {
           supported_curves:
             this.configService.get<string[]>('SUPPORTED_CURVES'),
           supported_did_methods: this.configService.get<string[]>(
-            'SUPPORTED_DID_METHODS'
+            'SUPPORTED_DID_METHODS',
           ),
           supported_digital_signatures: this.configService.get<string[]>(
-            'SUPPORTED_DIGITAL_SIGNATURES'
+            'SUPPORTED_DIGITAL_SIGNATURES',
           ),
         }),
         new CredentialPlugin(),

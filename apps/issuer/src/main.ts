@@ -2,7 +2,7 @@ import { fastifyFormbody } from '@fastify/formbody';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
-  NestFastifyApplication,
+  type NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import qs from 'qs';
 
@@ -28,7 +28,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyAdapter,
-    { bodyParser: false }
+    { bodyParser: false },
   );
 
   // Set up the global exception filter

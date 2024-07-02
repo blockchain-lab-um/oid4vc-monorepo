@@ -1,4 +1,4 @@
-import { Credentials } from '@blockchain-lab-um/oidc-types';
+import type { Credentials } from '@blockchain-lab-um/oidc-types';
 
 export interface DataStoreObject<T> {
   data: T;

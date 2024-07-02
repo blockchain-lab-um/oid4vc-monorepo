@@ -1,12 +1,12 @@
-import { randomUUID } from 'crypto';
-import { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
+import { randomUUID } from 'node:crypto';
+import type { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
 import {
   FastifyAdapter,
-  NestFastifyApplication,
+  type NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test, type TestingModule } from '@nestjs/testing';
 import { PEX } from '@sphereon/pex';
-import { RawServerDefault } from 'fastify';
+import type { RawServerDefault } from 'fastify';
 import * as qs from 'qs';
 import request from 'supertest';
 
@@ -40,7 +40,7 @@ describe('Verifier controler', () => {
 
     app = testingModule.createNestApplication<NestFastifyApplication>(
       fastifyAdapter,
-      { bodyParser: false }
+      { bodyParser: false },
     );
 
     app.useGlobalFilters(new AllExceptionsFilter());
@@ -69,7 +69,7 @@ describe('Verifier controler', () => {
 
         expect(response.status).toBe(200);
         expect(response.headers['content-type']).toBe(
-          'text/plain; charset=utf-8'
+          'text/plain; charset=utf-8',
         );
 
         const query = qs.parse(response.text.replace('openid://?', ''), {
@@ -228,12 +228,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -267,8 +267,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(200);
@@ -314,12 +314,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -352,8 +352,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -398,12 +398,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -437,8 +437,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -483,12 +483,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -521,8 +521,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -569,12 +569,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -607,8 +607,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -655,12 +655,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -694,8 +694,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(500);
@@ -741,12 +741,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         const idToken = await createJWTProof({
@@ -768,8 +768,8 @@ describe('Verifier controler', () => {
                 id_token: idToken,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -814,7 +814,7 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         // Create VP
@@ -847,8 +847,8 @@ describe('Verifier controler', () => {
                 id_token: idToken,
                 vp_token: vp,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -864,7 +864,7 @@ describe('Verifier controler', () => {
       it.todo('With invalid presentation submission - wrong path');
       it.todo('With invalid presentation submission - missing id');
       it.todo(
-        'With invalid presentation submission - missing descriptor_map id'
+        'With invalid presentation submission - missing descriptor_map id',
       );
 
       /**
@@ -901,12 +901,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         presentationSubmission.definition_id = 'invalid_definition_id';
@@ -942,8 +942,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -989,12 +989,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         (presentationSubmission as any).descriptor_map = [];
@@ -1030,8 +1030,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1080,12 +1080,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1119,8 +1119,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1167,12 +1167,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1206,14 +1206,15 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
         expect(response.body).toStrictEqual({
           error: 'invalid_request',
-          error_description: `Invalid vp. Reason: invalid_config: JWT audience does not match your DID or callback url`,
+          error_description:
+            'Invalid vp. Reason: invalid_config: JWT audience does not match your DID or callback url',
         });
         expect.assertions(3);
       });
@@ -1258,12 +1259,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1301,8 +1302,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1348,12 +1349,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1387,8 +1388,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1434,12 +1435,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1474,8 +1475,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1521,12 +1522,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1561,8 +1562,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);
@@ -1608,12 +1609,12 @@ describe('Verifier controler', () => {
 
         const { verifiableCredential } = pex.selectFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          [jwtVc]
+          [jwtVc],
         );
 
         const presentationSubmission = pex.presentationSubmissionFrom(
           query.presentation_definition as unknown as PresentationDefinition,
-          verifiableCredential ?? []
+          verifiableCredential ?? [],
         );
 
         // Create VP
@@ -1647,8 +1648,8 @@ describe('Verifier controler', () => {
                 vp_token: vp,
                 presentation_submission: presentationSubmission,
               },
-              { encode: true }
-            )
+              { encode: true },
+            ),
           );
 
         expect(response.status).toBe(400);

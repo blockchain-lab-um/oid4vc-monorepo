@@ -1,5 +1,5 @@
 import DetailedError from './detailedError.js';
-import { Result } from './result.js';
+import type { Result } from './result.js';
 
 export interface IsValidAuthorizationHeaderArgs {
   authorizationHeader: string;
@@ -10,7 +10,7 @@ export interface IsValidAuthorizationHeaderResponse {
 }
 
 export const isValidAuthorizationHeader = (
-  args: IsValidAuthorizationHeaderArgs
+  args: IsValidAuthorizationHeaderArgs,
 ): Result<IsValidAuthorizationHeaderResponse> => {
   const { authorizationHeader } = args;
 
@@ -21,7 +21,7 @@ export const isValidAuthorizationHeader = (
       success: false,
       error: new DetailedError(
         'invalid_request',
-        'Missing authorization header.'
+        'Missing authorization header.',
       ),
     };
   }
@@ -35,7 +35,7 @@ export const isValidAuthorizationHeader = (
       success: false,
       error: new DetailedError(
         'invalid_request',
-        'Invalid authorization header format.'
+        'Invalid authorization header format.',
       ),
     };
   }
@@ -47,7 +47,7 @@ export const isValidAuthorizationHeader = (
       success: false,
       error: new DetailedError(
         'invalid_token',
-        'Missing or invalid access token.'
+        'Missing or invalid access token.',
       ),
     };
   }

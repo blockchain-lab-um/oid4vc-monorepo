@@ -1,4 +1,4 @@
-import { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
+import type { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
 
 export interface AuthorizationRequest {
   credentialType: string;

@@ -1,27 +1,27 @@
 import { DetailedError, isError } from '@blockchain-lab-um/oidc-rp-plugin';
-import {
+import type {
   AuthorizationResponse,
   PresentationDefinition,
 } from '@blockchain-lab-um/oidc-types';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
-import { AuthorizationRequest } from './app.interface.js';
-import { IConfig } from './config/configuration.js';
-import { AgentService } from './modules/agent/agent.service.js';
-import { VerificationResults } from './modules/datastore/datastore.interface.js';
-import { DatastoreService } from './modules/datastore/datastore.service.js';
+import type { AuthorizationRequest } from './app.interface.js';
+import type { IConfig } from './config/configuration.js';
+import type { AgentService } from './modules/agent/agent.service.js';
+import type { VerificationResults } from './modules/datastore/datastore.interface.js';
+import type { DatastoreService } from './modules/datastore/datastore.service.js';
 
 @Injectable()
 export class AppService {
   constructor(
     private configService: ConfigService<IConfig, true>,
     private dataStoreService: DatastoreService,
-    private agentService: AgentService
+    private agentService: AgentService,
   ) {}
 
   async createAuthorizationRequest(
-    query: AuthorizationRequest
+    query: AuthorizationRequest,
   ): Promise<string> {
     const { state, credentialType } = query;
 
@@ -34,14 +34,14 @@ export class AppService {
     if (!credentialType) {
       throw new DetailedError(
         'invalid_request',
-        'Credential type is required.'
+        'Credential type is required.',
       );
     }
 
     const agent = this.agentService.getAgent();
 
     const url = `${this.configService.get<string>(
-      'VERIFIER_URL'
+      'VERIFIER_URL',
     )}/authorization-response`;
 
     // Select correct presentation definition
@@ -52,7 +52,7 @@ export class AppService {
     if (!presentationDefinition) {
       throw new DetailedError(
         'invalid_request',
-        'Presentation definition not supported.'
+        'Presentation definition not supported.',
       );
     }
 
@@ -73,7 +73,7 @@ export class AppService {
       throw new DetailedError(
         'internal_server_error',
         'Authorization request with this state already exists.',
-        500
+        500,
       );
     }
 
@@ -87,7 +87,7 @@ export class AppService {
   }
 
   async handleAuthorizationResponse(
-    body: AuthorizationResponse
+    body: AuthorizationResponse,
   ): Promise<boolean> {
     const agent = this.agentService.getAgent();
 
@@ -100,7 +100,7 @@ export class AppService {
     if (!userSession) {
       throw new DetailedError(
         'invalid_request',
-        'User session does not exist.'
+        'User session does not exist.',
       );
     }
 
@@ -113,7 +113,7 @@ export class AppService {
       throw new DetailedError(
         'internal_server_error',
         'Presentation definition not found.',
-        500
+        500,
       );
     }
 
@@ -129,7 +129,7 @@ export class AppService {
       this.dataStoreService.createVerificationResults(
         body.state,
         false,
-        res.error.message
+        res.error.message,
       );
 
       throw res.error;
@@ -147,7 +147,7 @@ export class AppService {
     if (!verificationResults) {
       throw new DetailedError(
         'invalid_request',
-        'Verification results not found.'
+        'Verification results not found.',
       );
     }
 

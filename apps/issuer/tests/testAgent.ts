@@ -1,23 +1,26 @@
 import {
-  getDidKeyResolver,
   KeyDIDProvider,
+  getDidKeyResolver,
 } from '@blockchain-lab-um/did-provider-key';
-import { IOIDCRPPlugin, OIDCRPPlugin } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
+  type IOIDCRPPlugin,
+  OIDCRPPlugin,
+} from '@blockchain-lab-um/oidc-rp-plugin';
+import {
+  type ICredentialPlugin,
+  type IDIDManager,
+  type IKeyManager,
+  type IResolver,
+  type TAgent,
   createAgent,
-  ICredentialPlugin,
-  IDIDManager,
-  IKeyManager,
-  IResolver,
-  TAgent,
 } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
 import {
   DIDStore,
   Entities,
   KeyStore,
-  migrations,
   PrivateKeyStore,
+  migrations,
 } from '@veramo/data-store';
 import { DIDManager } from '@veramo/did-manager';
 import { EthrDIDProvider } from '@veramo/did-provider-ethr';
@@ -76,8 +79,8 @@ const getAgent = async (): Promise<Agent> => {
           local: new KeyManagementSystem(
             new PrivateKeyStore(
               dbConnection,
-              new SecretBox(TEST_ISSUER_DB_SECRET)
-            )
+              new SecretBox(TEST_ISSUER_DB_SECRET),
+            ),
           ),
         },
       }),

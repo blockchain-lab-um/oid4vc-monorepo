@@ -1,19 +1,19 @@
 import {
-  CredentialOffer,
-  TOKEN_ERRORS,
+  type CredentialOffer,
   type CredentialOfferRequest,
   type CredentialRequest,
   type SupportedCredential,
+  TOKEN_ERRORS,
   type TokenRequest,
   type TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import { qsCustomDecoder } from '@blockchain-lab-um/utils';
 import {
   FastifyAdapter,
-  NestFastifyApplication,
+  type NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { Test, TestingModule } from '@nestjs/testing';
-import { RawServerDefault } from 'fastify';
+import { Test, type TestingModule } from '@nestjs/testing';
+import type { RawServerDefault } from 'fastify';
 import qs from 'qs';
 import request from 'supertest';
 
@@ -48,7 +48,7 @@ const credOfferAndTokenRequest = async (server: RawServerDefault) => {
       depth: 50,
       parameterLimit: 1000,
       decoder: qsCustomDecoder,
-    }
+    },
   ).credential_offer as CredentialOffer;
 
   expect(response.status).toBe(200);
@@ -146,12 +146,12 @@ describe('Issuer controller', () => {
 
     app = testingModule.createNestApplication<NestFastifyApplication>(
       fastifyAdapter,
-      { bodyParser: false }
+      { bodyParser: false },
     );
 
     app = testingModule.createNestApplication<NestFastifyApplication>(
       fastifyAdapter,
-      { bodyParser: false }
+      { bodyParser: false },
     );
 
     // configService = app.get<ConfigService<IConfig, true>>(ConfigService);
@@ -211,7 +211,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual(['GmCredential']);
@@ -253,7 +253,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -300,7 +300,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -347,7 +347,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -406,7 +406,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -465,7 +465,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -513,7 +513,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -561,7 +561,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -608,7 +608,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -658,7 +658,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(query.credentials).toStrictEqual([
@@ -749,7 +749,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(response.status).toBe(200);
@@ -806,7 +806,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         expect(response.status).toBe(200);
@@ -917,7 +917,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         const tokenRequestData: TokenRequest = {
@@ -1016,7 +1016,7 @@ describe('Issuer controller', () => {
             depth: 50,
             parameterLimit: 1000,
             decoder: qsCustomDecoder,
-          }
+          },
         ).credential_offer as CredentialOffer;
 
         const tokenRequestData: TokenRequest = {
@@ -1151,9 +1151,8 @@ describe('Issuer controller', () => {
      */
     describe('Should fail', () => {
       it('With missing authorization header', async () => {
-        const { cNonce, supportedCredential } = await credOfferAndTokenRequest(
-          server
-        );
+        const { cNonce, supportedCredential } =
+          await credOfferAndTokenRequest(server);
 
         const selectedCredential = (
           supportedCredential.format === 'mso_mdoc'
@@ -1245,9 +1244,8 @@ describe('Issuer controller', () => {
       });
 
       it('With invalid header format - missing access token', async () => {
-        const { cNonce, supportedCredential } = await credOfferAndTokenRequest(
-          server
-        );
+        const { cNonce, supportedCredential } =
+          await credOfferAndTokenRequest(server);
 
         const selectedCredential = (
           supportedCredential.format === 'mso_mdoc'
@@ -1280,7 +1278,7 @@ describe('Issuer controller', () => {
 
         const response = await request(server)
           .post('/credential')
-          .set('Authorization', `Bearer`)
+          .set('Authorization', 'Bearer')
           .send(credentialRequest);
 
         expect(response.status).toBe(400);
@@ -1293,9 +1291,8 @@ describe('Issuer controller', () => {
       });
 
       it('With invalid authorization header', async () => {
-        const { cNonce, supportedCredential } = await credOfferAndTokenRequest(
-          server
-        );
+        const { cNonce, supportedCredential } =
+          await credOfferAndTokenRequest(server);
 
         const selectedCredential = (
           supportedCredential.format === 'mso_mdoc'

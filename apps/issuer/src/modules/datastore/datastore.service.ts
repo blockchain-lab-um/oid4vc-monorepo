@@ -1,8 +1,8 @@
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
-import { IConfig } from '../../config/configuration.js';
-import { UserSession, UserSessionStore } from './datastore.interface.js';
+import type { IConfig } from '../../config/configuration.js';
+import type { UserSession, UserSessionStore } from './datastore.interface.js';
 
 export class DatastoreService {
   private userSessionStore: UserSessionStore;

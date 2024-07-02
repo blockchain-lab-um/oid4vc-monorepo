@@ -4,27 +4,27 @@ import {
   isValidAuthorizationHeader,
 } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  TOKEN_ERRORS,
   type CredentialOfferRequest,
   type CredentialRequest,
   type CredentialResponse,
   type IssuerServerMetadata,
+  TOKEN_ERRORS,
   type TokenRequest,
   type TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
 import type { IConfig } from './config/configuration.js';
-import { AgentService } from './modules/agent/agent.service.js';
-import { DatastoreService } from './modules/datastore/datastore.service.js';
+import type { AgentService } from './modules/agent/agent.service.js';
+import type { DatastoreService } from './modules/datastore/datastore.service.js';
 
 @Injectable()
 export class AppService {
   constructor(
     private configService: ConfigService<IConfig, true>,
     private dataStoreService: DatastoreService,
-    private agentService: AgentService
+    private agentService: AgentService,
   ) {}
 
   async handleIssuerServerMetadataRequest(): Promise<IssuerServerMetadata> {
@@ -39,7 +39,7 @@ export class AppService {
   }
 
   async createCredentialOfferRequest(
-    query: CredentialOfferRequest
+    query: CredentialOfferRequest,
   ): Promise<string> {
     let { credentials, grants } = query;
 
@@ -104,7 +104,7 @@ export class AppService {
       if (!userSession) {
         throw new DetailedError(
           'invalid_request',
-          'Invalid or missing pre-authorized_code.'
+          'Invalid or missing pre-authorized_code.',
         );
       }
 
@@ -138,13 +138,13 @@ export class AppService {
 
     throw new DetailedError(
       'unsupported_grant_type',
-      TOKEN_ERRORS.unsupported_grant_type
+      TOKEN_ERRORS.unsupported_grant_type,
     );
   }
 
   async handleCredentialRequest(
     body: CredentialRequest,
-    authorizationHeader: string
+    authorizationHeader: string,
   ): Promise<CredentialResponse> {
     const agent = this.agentService.getAgent();
     const authHeaderValidationResult = isValidAuthorizationHeader({
@@ -157,14 +157,14 @@ export class AppService {
 
     // Check if access token is valid
     const userSession = this.dataStoreService.getUserSession(
-      authHeaderValidationResult.data.accessToken
+      authHeaderValidationResult.data.accessToken,
     );
 
     // Session does not exist
     if (!userSession) {
       throw new DetailedError(
         'invalid_token',
-        'Missing or invalid access token.'
+        'Missing or invalid access token.',
       );
     }
 

@@ -3,14 +3,14 @@ import {
   isError,
   privateKeyToDid,
 } from '@blockchain-lab-um/oidc-rp-plugin';
-import { MinimalImportableKey } from '@veramo/core';
+import type { MinimalImportableKey } from '@veramo/core';
 import { bytesToBase64url, encodeBase64url } from '@veramo/utils';
 import elliptic from 'elliptic';
 import { sha256 } from 'ethereum-cryptography/sha256.js';
-import { JWTPayload } from 'jose';
+import type { JWTPayload } from 'jose';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Agent } from './testAgent.js';
+import type { Agent } from './testAgent.js';
 
 const { ec: EC } = elliptic;
 
@@ -134,7 +134,7 @@ export const createJWTProof = async ({
 export const importKey = async (
   agent: Agent,
   privateKey: string,
-  alias: string
+  alias: string,
 ) => {
   const uuid = uuidv4();
   try {
@@ -160,7 +160,7 @@ export const importKey = async (
       throw new DetailedError(
         'internal_server_error',
         'Error while creating a DID',
-        500
+        500,
       );
     }
 

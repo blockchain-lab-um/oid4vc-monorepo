@@ -1,31 +1,31 @@
 import {
-  getDidKeyResolver,
   KeyDIDProvider,
+  getDidKeyResolver,
 } from '@blockchain-lab-um/did-provider-key';
 import {
-  IOIDCRPPlugin,
-  isError,
+  type IOIDCRPPlugin,
   OIDCRPPlugin,
+  isError,
   privateKeyToDid,
 } from '@blockchain-lab-um/oidc-rp-plugin';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 import {
+  type ICredentialPlugin,
+  type IDIDManager,
+  type IKeyManager,
+  type IResolver,
+  type MinimalImportableKey,
+  type TAgent,
   createAgent,
-  ICredentialPlugin,
-  IDIDManager,
-  IKeyManager,
-  IResolver,
-  MinimalImportableKey,
-  TAgent,
 } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
 import {
   DIDStore,
   Entities,
   KeyStore,
-  migrations,
   PrivateKeyStore,
+  migrations,
 } from '@veramo/data-store';
 import { DIDManager } from '@veramo/did-manager';
 import { EthrDIDProvider } from '@veramo/did-provider-ethr';
@@ -37,7 +37,7 @@ import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 import { DataSource } from 'typeorm';
 
 import {
-  IConfig,
+  type IConfig,
   loadSupportedCredentials,
 } from '../../config/configuration.js';
 
@@ -67,13 +67,13 @@ export class AgentService {
         {
           name: 'mainnet',
           rpcUrl: `https://mainnet.infura.io/v3/${this.configService.get<string>(
-            'INFURA_PROJECT_ID'
+            'INFURA_PROJECT_ID',
           )}`,
         },
         {
           name: 'goerli',
           rpcUrl: `https://goerli.infura.io/v3/${this.configService.get<string>(
-            'INFURA_PROJECT_ID'
+            'INFURA_PROJECT_ID',
           )}`,
         },
       ],
@@ -92,9 +92,9 @@ export class AgentService {
               new PrivateKeyStore(
                 this.dbConnection,
                 new SecretBox(
-                  this.configService.get<string>('ISSUER_DB_SECRET')
-                )
-              )
+                  this.configService.get<string>('ISSUER_DB_SECRET'),
+                ),
+              ),
             ),
           },
         }),
@@ -124,10 +124,10 @@ export class AgentService {
           supported_curves:
             this.configService.get<string[]>('SUPPORTED_CURVES'),
           supported_did_methods: this.configService.get<string[]>(
-            'SUPPORTED_DID_METHODS'
+            'SUPPORTED_DID_METHODS',
           ),
           supported_digital_signatures: this.configService.get<string[]>(
-            'SUPPORTED_DIGITAL_SIGNATURES'
+            'SUPPORTED_DIGITAL_SIGNATURES',
           ),
           supported_credentials: loadSupportedCredentials(),
         }),

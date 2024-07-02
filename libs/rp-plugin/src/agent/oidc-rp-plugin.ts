@@ -1,37 +1,41 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import {
-  TOKEN_ERRORS,
   type AuthorizationRequest,
   type CredentialResponse,
   type Credentials,
   type IssuerServerMetadata,
+  TOKEN_ERRORS,
   type TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
-import { PEX, Status, type EvaluationResults } from '@sphereon/pex';
+import { type EvaluationResults, PEX, Status } from '@sphereon/pex';
 import type {
   IVerifiableCredential,
   OriginalVerifiablePresentation,
 } from '@sphereon/ssi-types';
-import { CredentialPayload, IAgentPlugin } from '@veramo/core';
+import type { CredentialPayload, IAgentPlugin } from '@veramo/core';
 import {
+  type _ExtendedVerificationMethod,
   bytesToBase64url,
   extractPublicKeyHex,
-  type _ExtendedVerificationMethod,
 } from '@veramo/utils';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import type { JsonWebKey, VerificationMethod } from 'did-resolver';
 import elliptic from 'elliptic';
 import {
+  type JWK,
   calculateJwkThumbprint,
   decodeJwt,
   decodeProtectedHeader,
   importJWK,
   jwtVerify,
-  type JWK,
 } from 'jose';
 import qs from 'qs';
 
+import type {
+  IOIDCRPPlugin,
+  OIDCRPAgentContext,
+} from '../types/IOIDCRPPlugin.js';
 import type {
   CreateAuthorizationRequestArgs,
   CreateAuthorizationRequestResponse,
@@ -46,10 +50,6 @@ import type {
   ProofOfPossesionArgs,
   ProofOfPossesionResponseArgs,
 } from '../types/internal.js';
-import type {
-  IOIDCRPPlugin,
-  OIDCRPAgentContext,
-} from '../types/IOIDCRPPlugin.js';
 import DetailedError from '../utils/detailedError.js';
 import type { Result } from '../utils/index.js';
 
@@ -87,7 +87,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
   // Create Self-Issued OpenID Provider Authorization Request
   // https://openid.net/specs/openid-connect-self-issued-v2-1_0.html#section-10
   public async createAuthorizationRequest(
-    args: CreateAuthorizationRequestArgs
+    args: CreateAuthorizationRequestArgs,
   ): Promise<Result<CreateAuthorizationRequestResponse>> {
     // TODO: Add support for presentation_definition_uri
     const { presentationDefinition, clientId, redirectUri, state, overrides } =
@@ -133,7 +133,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
 
   public async handleAuthorizationResponse(
     args: HandleAuthorizationResponseArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<boolean>> {
     const {
       body,
@@ -169,7 +169,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'presentation_submission must be present'
+          'presentation_submission must be present',
         ),
       };
     }
@@ -179,7 +179,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'presentationDefinition must be present'
+          'presentationDefinition must be present',
         ),
       };
     }
@@ -195,7 +195,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Invalid id_token jwt header'
+          'Invalid id_token jwt header',
         ),
       };
     }
@@ -217,7 +217,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Invalid id_token jwt payload'
+          'Invalid id_token jwt payload',
         ),
       };
     }
@@ -228,7 +228,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'id_token iss and sub must be equal'
+          'id_token iss and sub must be equal',
         ),
       };
     }
@@ -261,7 +261,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          `id_token audience is invalid. Must be ${this.pluginConfig.url}/authorization-response`
+          `id_token audience is invalid. Must be ${this.pluginConfig.url}/authorization-response`,
         ),
       };
     }
@@ -292,7 +292,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'id_token must not contain sub_jwk when signed with DID'
+            'id_token must not contain sub_jwk when signed with DID',
           ),
         };
       }
@@ -302,7 +302,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'id_token must contain kid in header when signed with DID'
+            'id_token must contain kid in header when signed with DID',
           ),
         };
       }
@@ -315,7 +315,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             'invalid_request',
             `Error resolving did. Reason: ${
               resolvedDid.didResolutionMetadata.error ?? 'Unknown error'
-            }`
+            }`,
           ),
         };
       }
@@ -334,7 +334,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
       }
 
       publicKeyHex = extractPublicKeyHex(
-        fragment as _ExtendedVerificationMethod
+        fragment as _ExtendedVerificationMethod,
       );
 
       if (publicKeyHex === '') {
@@ -342,7 +342,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'Invalid kid or no public key present'
+            'Invalid kid or no public key present',
           ),
         };
       }
@@ -381,14 +381,14 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'id_token must contain sub_jwk when signed with JWK'
+            'id_token must contain sub_jwk when signed with JWK',
           ),
         };
       }
 
       // Check jwk thumbprint
       const jwkThumbprint = await calculateJwkThumbprint(
-        payload.sub_jwk as JWK
+        payload.sub_jwk as JWK,
       );
 
       if (jwkThumbprint !== payload.sub) {
@@ -396,7 +396,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'id_token sub does not match sub_jwk thumbprint'
+            'id_token sub does not match sub_jwk thumbprint',
           ),
         };
       }
@@ -414,7 +414,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'id_token signature invalid'
+          'id_token signature invalid',
         ),
       };
     }
@@ -427,7 +427,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'presentation_submission descriptor_map must be an array with at least one element'
+          'presentation_submission descriptor_map must be an array with at least one element',
         ),
       };
     }
@@ -437,7 +437,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'presentation_submission definition_id does not match presentation_definition id'
+          'presentation_submission definition_id does not match presentation_definition id',
         ),
       };
     }
@@ -451,7 +451,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           error: new DetailedError(
             'internal_server_error',
             'Array of verifiable presentations not supported yet',
-            500
+            500,
           ),
         };
       }
@@ -468,7 +468,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           ...(presentationDefinition.format && {
             restrictToFormats: presentationDefinition.format, // FIXME: This is not working (ldp, and eio)
           }),
-        }
+        },
       );
 
       if (evalResult.areRequiredCredentialsPresent === Status.WARN) {
@@ -478,7 +478,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            "The presentation you've sent didn't satisfy the requirement defined presentationDefinition object."
+            "The presentation you've sent didn't satisfy the requirement defined presentationDefinition object.",
           ),
         };
       }
@@ -489,7 +489,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            "The presentation you've sent didn't satisfy the requirement defined presentationDefinition object."
+            "The presentation you've sent didn't satisfy the requirement defined presentationDefinition object.",
           ),
         };
       }
@@ -506,7 +506,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           ...(presentationDefinition.format && {
             restrictToFormats: presentationDefinition.format,
           }),
-        }
+        },
       );
 
       if (evalResult.areRequiredCredentialsPresent === Status.WARN) {
@@ -516,7 +516,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            "The credentials you've sent didn't satisfy the requirement defined presentationDefinition object."
+            "The credentials you've sent didn't satisfy the requirement defined presentationDefinition object.",
           ),
         };
       }
@@ -527,7 +527,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            "The credentials you've sent didn't satisfy the requirement defined presentationDefinition object."
+            "The credentials you've sent didn't satisfy the requirement defined presentationDefinition object.",
           ),
         };
       }
@@ -548,7 +548,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            `Invalid vp. Reason: ${verified.error?.message ?? 'Unknown error'}`
+            `Invalid vp. Reason: ${verified.error?.message ?? 'Unknown error'}`,
           ),
         };
       }
@@ -569,13 +569,13 @@ export class OIDCRPPlugin implements IAgentPlugin {
         credentials.map(async (vc) =>
           context.agent.verifyCredential({
             credential: vc,
-          })
-        )
+          }),
+        ),
       );
 
       // Check if all credentials are valid
       const invalidCredentials = verificationResults.filter(
-        (result) => !result.verified
+        (result) => !result.verified,
       );
 
       if (invalidCredentials.length > 0) {
@@ -585,7 +585,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             'invalid_request',
             `Atleast one credential is invalid. Reason: ${
               invalidCredentials[0].error?.message ?? 'Unknown error'
-            }`
+            }`,
           ),
         };
       }
@@ -596,7 +596,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         error: new DetailedError(
           'internal_server_error',
           'Unexpected error occured while verifying vp_token',
-          500
+          500,
         ),
       };
     }
@@ -631,7 +631,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
   }
 
   public async createCredentialOfferRequest(
-    args: CreateCredentialOfferRequestArgs
+    args: CreateCredentialOfferRequestArgs,
   ): Promise<Result<CreateCredentialOfferRequestResposne>> {
     const {
       credentials: requestedCredentials,
@@ -645,14 +645,14 @@ export class OIDCRPPlugin implements IAgentPlugin {
       !requestedCredentials.every(
         (credential) =>
           typeof credential === 'string' ||
-          (typeof credential === 'object' && credential !== null)
+          (typeof credential === 'object' && credential !== null),
       )
     ) {
       return {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Requested invalid credentials.'
+          'Requested invalid credentials.',
         ),
       };
     }
@@ -699,20 +699,20 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'No supported credentials found.'
+          'No supported credentials found.',
         ),
       };
     }
 
     const preAuthorizedCode = randomUUID();
     const userPin = Array.from({ length: 8 }, () =>
-      Math.floor(Math.random() * 10)
+      Math.floor(Math.random() * 10),
     )
       .map(String)
       .join('');
 
     const preAuthorizedCodeIncluded = requestedGrants?.includes(
-      'urn:ietf:params:oauth:grant-type:pre-authorized_code'
+      'urn:ietf:params:oauth:grant-type:pre-authorized_code',
     );
 
     // TODO: How to handle the case where `grants` is undefined?
@@ -746,7 +746,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
       data: {
         credentialOfferRequest: `openid-credential-offer://?${qs.stringify(
           params,
-          { encode: true }
+          { encode: true },
         )}`,
         credentials,
         ...(preAuthorizedCodeIncluded && { preAuthorizedCode }),
@@ -756,7 +756,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
   }
 
   public async isValidTokenRequest(
-    args: IsValidTokenRequestArgs
+    args: IsValidTokenRequestArgs,
   ): Promise<Result<IsValidTokenRequestResponse>> {
     const { body } = args;
 
@@ -765,7 +765,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'unsupported_grant_type',
-          TOKEN_ERRORS.unsupported_grant_type
+          TOKEN_ERRORS.unsupported_grant_type,
         ),
       };
     }
@@ -778,7 +778,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_request',
-            'Invalid or missing pre-authorized_code.'
+            'Invalid or missing pre-authorized_code.',
             // TODO: Those this error need have status code 401?
           ),
         };
@@ -797,13 +797,13 @@ export class OIDCRPPlugin implements IAgentPlugin {
       success: false,
       error: new DetailedError(
         'unsupported_grant_type',
-        TOKEN_ERRORS.unsupported_grant_type
+        TOKEN_ERRORS.unsupported_grant_type,
       ),
     };
   }
 
   public async handlePreAuthorizedCodeTokenRequest(
-    args: HandlePreAuthorizedCodeTokenRequestArgs
+    args: HandlePreAuthorizedCodeTokenRequestArgs,
   ): Promise<Result<TokenResponse>> {
     const { body, preAuthorizedCode, userPin, overrides } = args;
     // FIXME - Split authorization_code and pre-authorized_code
@@ -814,7 +814,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Invalid or missing pre-authorized_code.'
+          'Invalid or missing pre-authorized_code.',
         ),
       };
     }
@@ -824,7 +824,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Invalid or missing user_pin.'
+          'Invalid or missing user_pin.',
         ),
       };
     }
@@ -850,7 +850,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
 
   public async handleCredentialRequest(
     args: HandleCredentialRequestArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<CredentialResponse>> {
     const { body, issuerDid, subjectDid, credentialSubjectClaims } = args;
 
@@ -872,7 +872,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           Array.isArray(body.types) &&
           compareTypes(cred.types, body.types)
         );
-      }
+      },
     );
 
     // Check if credential is supported
@@ -902,7 +902,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Currently the mso_mdoc format is not supported.'
+          'Currently the mso_mdoc format is not supported.',
         ),
       };
     }
@@ -937,7 +937,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         error: new DetailedError(
           'internal_server_error',
           'Error building credential payload',
-          500
+          500,
         ),
       };
     }
@@ -955,7 +955,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         error: new DetailedError(
           'internal_server_error',
           'Error creating credential',
-          500
+          500,
         ),
       };
     }
@@ -1094,8 +1094,8 @@ export class OIDCRPPlugin implements IAgentPlugin {
         error: new DetailedError(
           'invalid_request',
           `Invalid credential subject claims. Errors: ${JSON.stringify(
-            validate.errors
-          )}`
+            validate.errors,
+          )}`,
         ),
       };
     }
@@ -1113,7 +1113,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
 
   public async proofOfPossession(
     args: ProofOfPossesionArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<ProofOfPossesionResponseArgs>> {
     const { proof, cNonce, cNonceExpiresIn } = args;
 
@@ -1125,7 +1125,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_or_missing_proof',
-          'Proof is required.'
+          'Proof is required.',
         ),
       };
     }
@@ -1136,7 +1136,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_or_missing_proof',
-          'Proof format missing or not supported.'
+          'Proof format missing or not supported.',
         ),
       };
     }
@@ -1147,7 +1147,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_or_missing_proof',
-          'Missing or invalid jwt.'
+          'Missing or invalid jwt.',
         ),
       };
     }
@@ -1166,14 +1166,14 @@ export class OIDCRPPlugin implements IAgentPlugin {
     // Check if more than 1 is present (kid, jwk, x5c)
     if (
       [protectedHeader.kid, protectedHeader.jwk, protectedHeader.x5c].filter(
-        (value) => value != null
+        (value) => value != null,
       ).length !== 1
     ) {
       return {
         success: false,
         error: new DetailedError(
           'invalid_request',
-          'Exactly one of kid, jwk, x5c must be present.'
+          'Exactly one of kid, jwk, x5c must be present.',
         ),
       };
     }
@@ -1189,7 +1189,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           'invalid_request',
           `Invalid JWT typ. Expected "openid4vci-proof+jwt" but got "${
             protectedHeader.typ ?? 'undefined'
-          }".`
+          }".`,
         ),
       };
     }
@@ -1216,7 +1216,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             'invalid_request',
             `Error resolving did. Reason: ${
               resolvedDid.didResolutionMetadata.error ?? 'Unknown error'
-            }.`
+            }.`,
           ),
         };
       }
@@ -1240,7 +1240,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         publicKey = await importJWK(fragment.publicKeyJwk, protectedHeader.alg);
       } else {
         const publicKeyHex = extractPublicKeyHex(
-          fragment as _ExtendedVerificationMethod
+          fragment as _ExtendedVerificationMethod,
         );
 
         if (publicKeyHex === '') {
@@ -1248,7 +1248,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             success: false,
             error: new DetailedError(
               'invalid_request',
-              'Invalid kid or no public key present.'
+              'Invalid kid or no public key present.',
             ),
           };
         }
@@ -1259,7 +1259,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             success: false,
             error: new DetailedError(
               'invalid_request',
-              'Unsupported key type.'
+              'Unsupported key type.',
             ),
           };
         }
@@ -1275,7 +1275,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
             success: false,
             error: new DetailedError(
               'invalid_request',
-              'Unsupported key type.'
+              'Unsupported key type.',
             ),
           };
         }
@@ -1324,7 +1324,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
         success: false,
         error: new DetailedError(
           'invalid_or_missing_proof',
-          (e as Error).toString()
+          (e as Error).toString(),
         ),
       };
     }
@@ -1340,7 +1340,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_or_missing_proof',
-            'Invalid or missing nonce.'
+            'Invalid or missing nonce.',
           ),
         };
       }
@@ -1351,7 +1351,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
           success: false,
           error: new DetailedError(
             'invalid_or_missing_proof',
-            'nonce expired.'
+            'nonce expired.',
           ),
         };
       }

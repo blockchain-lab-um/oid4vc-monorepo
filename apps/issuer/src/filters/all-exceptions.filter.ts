@@ -1,12 +1,12 @@
 import { DetailedError } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  ArgumentsHost,
+  type ArgumentsHost,
   Catch,
-  ExceptionFilter,
+  type ExceptionFilter,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { FastifyReply } from 'fastify';
+import type { FastifyReply } from 'fastify';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -23,7 +23,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         'http_exception',
         typeof exceptionResponse === 'string'
           ? exceptionResponse
-          : JSON.stringify(exceptionResponse)
+          : JSON.stringify(exceptionResponse),
       );
 
       httpStatus = exception.getStatus();
@@ -33,7 +33,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     } else {
       error = new DetailedError(
         'internal_server_error',
-        'The server encountered an internal error and was unable to complete your request.'
+        'The server encountered an internal error and was unable to complete your request.',
       );
       httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }

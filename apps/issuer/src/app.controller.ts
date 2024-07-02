@@ -21,7 +21,7 @@ import {
 import type { FastifyReply } from 'fastify';
 import qs from 'qs';
 
-import { AppService } from './app.service.js';
+import type { AppService } from './app.service.js';
 
 @Controller()
 export class AppController {
@@ -37,7 +37,7 @@ export class AppController {
   @Get('/authorize')
   @HttpCode(302)
   async authorize(
-    @Response({ passthrough: true }) res: FastifyReply
+    @Response({ passthrough: true }) res: FastifyReply,
   ): Promise<void> {
     // Redirect
     return res.redirect(302, 'https://example.com/redirect');
@@ -50,7 +50,7 @@ export class AppController {
       qs.parse(query as string, {
         depth: 50,
         parameterLimit: 1000,
-      }) as unknown as CredentialOfferRequest
+      }) as unknown as CredentialOfferRequest,
     );
   }
 
@@ -61,7 +61,7 @@ export class AppController {
   @Header('Cache-Control', 'no-store')
   async token(
     @Headers('content-type') contentType: string,
-    @Body() body: TokenRequest
+    @Body() body: TokenRequest,
   ): Promise<TokenResponse> {
     // Validate request header content-type
     if (
@@ -77,7 +77,7 @@ export class AppController {
   @HttpCode(200)
   async credential(
     @Headers('Authorization') authorization: string,
-    @Body() body: CredentialRequest
+    @Body() body: CredentialRequest,
   ): Promise<CredentialResponse> {
     return this.appService.handleCredentialRequest(body, authorization);
   }

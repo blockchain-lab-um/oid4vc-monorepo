@@ -1,20 +1,20 @@
-import {
+import type {
   CredentialResponse,
   IssuerServerMetadata,
   TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
-import {
+import type {
   IAgentContext,
   ICredentialIssuer,
   ICredentialVerifier,
   IPluginMethodMap,
   IResolver,
 } from '@veramo/core';
-import { ICredentialIssuerEIP712 } from '@veramo/credential-eip712';
-import { ICredentialIssuerLD } from '@veramo/credential-ld';
+import type { ICredentialIssuerEIP712 } from '@veramo/credential-eip712';
+import type { ICredentialIssuerLD } from '@veramo/credential-ld';
 
-import { Result } from '../utils/index.js';
-import {
+import type { Result } from '../utils/index.js';
+import type {
   CreateAuthorizationRequestArgs,
   CreateAuthorizationRequestResponse,
   CreateCredentialOfferRequestArgs,
@@ -30,29 +30,29 @@ import {
 
 export interface IOIDCRPPlugin extends IPluginMethodMap {
   createAuthorizationRequest(
-    args: CreateAuthorizationRequestArgs
+    args: CreateAuthorizationRequestArgs,
   ): Promise<Result<CreateAuthorizationRequestResponse>>;
   handleAuthorizationResponse(
     args: HandleAuthorizationResponseArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<boolean>>;
   handleIssuerServerMetadataRequest(): Promise<Result<IssuerServerMetadata>>;
   createCredentialOfferRequest(
-    args: CreateCredentialOfferRequestArgs
+    args: CreateCredentialOfferRequestArgs,
   ): Promise<Result<CreateCredentialOfferRequestResposne>>;
   handlePreAuthorizedCodeTokenRequest(
-    args: HandlePreAuthorizedCodeTokenRequestArgs
+    args: HandlePreAuthorizedCodeTokenRequestArgs,
   ): Promise<Result<TokenResponse>>;
   handleCredentialRequest(
     args: HandleCredentialRequestArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<CredentialResponse>>;
   isValidTokenRequest(
-    args: IsValidTokenRequestArgs
+    args: IsValidTokenRequestArgs,
   ): Promise<Result<IsValidTokenRequestResponse>>;
   proofOfPossession(
     args: ProofOfPossesionArgs,
-    context: OIDCRPAgentContext
+    context: OIDCRPAgentContext,
   ): Promise<Result<ProofOfPossesionResponseArgs>>;
 }
 

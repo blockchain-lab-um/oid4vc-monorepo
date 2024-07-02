@@ -1,4 +1,4 @@
-import { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
+import type { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
 import {
   BadRequestException,
   Body,
@@ -10,9 +10,9 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { AuthorizationRequest } from './app.interface.js';
-import { AppService } from './app.service.js';
-import { VerificationResults } from './modules/datastore/datastore.interface.js';
+import type { AuthorizationRequest } from './app.interface.js';
+import type { AppService } from './app.service.js';
+import type { VerificationResults } from './modules/datastore/datastore.interface.js';
 
 @Controller()
 export class AppController {
@@ -28,7 +28,7 @@ export class AppController {
   @HttpCode(200)
   async authResponse(
     @Headers('Content-Type') contentType: string,
-    @Body() body: AuthorizationResponse
+    @Body() body: AuthorizationResponse,
   ): Promise<boolean> {
     // Validate request header content-type
     if (
@@ -43,7 +43,7 @@ export class AppController {
   @Get('/verification-results')
   @HttpCode(200)
   async verificationResults(
-    @Query('id') id: string
+    @Query('id') id: string,
   ): Promise<VerificationResults> {
     return this.appService.getVerificationResults(id);
   }

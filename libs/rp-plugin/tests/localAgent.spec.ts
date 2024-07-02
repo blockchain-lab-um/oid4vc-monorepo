@@ -1,7 +1,7 @@
 // import fs from 'fs';
 
 // Shared tests
-import myPluginLogic, { ConfiguredAgent } from './shared/integration.js';
+import myPluginLogic, { type ConfiguredAgent } from './shared/integration.js';
 
 jest.setTimeout(30000);
 
