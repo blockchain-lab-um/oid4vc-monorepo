@@ -333,9 +333,11 @@ export class OIDCRPPlugin implements IAgentPlugin {
         };
       }
 
-      publicKeyHex = extractPublicKeyHex(
+      const { publicKeyHex: _publicKeyHex } = extractPublicKeyHex(
         fragment as _ExtendedVerificationMethod,
       );
+
+      publicKeyHex = _publicKeyHex;
 
       if (publicKeyHex === '') {
         return {
@@ -1239,7 +1241,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
       if (fragment.publicKeyJwk) {
         publicKey = await importJWK(fragment.publicKeyJwk, protectedHeader.alg);
       } else {
-        const publicKeyHex = extractPublicKeyHex(
+        const { publicKeyHex } = extractPublicKeyHex(
           fragment as _ExtendedVerificationMethod,
         );
 

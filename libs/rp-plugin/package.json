@@ -7,7 +7,12 @@
   "module": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
-  "files": ["dist/", "README.md", "CHANGELOG.md", "package.json"],
+  "files": [
+    "dist/",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
   "scripts": {
     "build": "pnpm clean && pnpm compile",
     "clean": "rimraf dist",
@@ -18,10 +23,10 @@
   "dependencies": {
     "@blockchain-lab-um/oidc-types": "0.0.8",
     "@sphereon/pex": "2.0.1",
-    "@veramo/core": "5.4.1",
-    "@veramo/credential-eip712": "5.4.1",
-    "@veramo/credential-ld": "5.4.1",
-    "@veramo/utils": "5.4.1",
+    "@veramo/core": "6.0.0",
+    "@veramo/credential-eip712": "6.0.0",
+    "@veramo/credential-ld": "6.0.0",
+    "@veramo/utils": "6.0.0",
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "did-resolver": "^4.1.0",
@@ -33,7 +38,7 @@
     "@sphereon/ssi-types": "^0.11.0",
     "@types/elliptic": "6.4.16",
     "@types/qs": "^6.9.7",
-    "@veramo/cli": "5.4.1",
+    "@veramo/cli": "6.0.0",
     "tsup": "^7.2.0"
   },
   "veramo": {
