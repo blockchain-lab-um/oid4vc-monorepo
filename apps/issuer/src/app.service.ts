@@ -4,20 +4,20 @@ import {
   isValidAuthorizationHeader,
 } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  type CredentialOfferRequest,
-  type CredentialRequest,
-  type CredentialResponse,
-  type IssuerServerMetadata,
+  CredentialOfferRequest,
+  CredentialRequest,
+  CredentialResponse,
+  IssuerServerMetadata,
   TOKEN_ERRORS,
-  type TokenRequest,
-  type TokenResponse,
+  TokenRequest,
+  TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import { Injectable } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
-import type { IConfig } from './config/configuration.js';
-import type { AgentService } from './modules/agent/agent.service.js';
-import type { DatastoreService } from './modules/datastore/datastore.service.js';
+import { IConfig } from './config/configuration.js';
+import { AgentService } from './modules/agent/agent.service.js';
+import { DatastoreService } from './modules/datastore/datastore.service.js';
 
 @Injectable()
 export class AppService {

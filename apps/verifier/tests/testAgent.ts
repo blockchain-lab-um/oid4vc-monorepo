@@ -1,22 +1,19 @@
+import { IOIDCRPPlugin, OIDCRPPlugin } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  type IOIDCRPPlugin,
-  OIDCRPPlugin,
-} from '@blockchain-lab-um/oidc-rp-plugin';
-import {
-  type ICredentialPlugin,
-  type IDIDManager,
-  type IKeyManager,
-  type IResolver,
-  type TAgent,
+  ICredentialPlugin,
+  IDIDManager,
+  IKeyManager,
+  IResolver,
+  TAgent,
   createAgent,
 } from '@veramo/core';
 import {
   CredentialIssuerEIP712,
-  type ICredentialIssuerEIP712,
+  ICredentialIssuerEIP712,
 } from '@veramo/credential-eip712';
 import {
   CredentialIssuerLD,
-  type ICredentialIssuerLD,
+  ICredentialIssuerLD,
   LdDefaultContexts,
   VeramoEcdsaSecp256k1RecoverySignature2020,
   VeramoEd25519Signature2018,

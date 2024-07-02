@@ -1,4 +1,4 @@
-import type { SupportedCredential } from '@blockchain-lab-um/oidc-types';
+import { SupportedCredential } from '@blockchain-lab-um/oidc-types';
 
 /**
  * This file is used to store environment variables that are used in the app.

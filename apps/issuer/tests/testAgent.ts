@@ -2,16 +2,13 @@ import {
   KeyDIDProvider,
   getDidKeyResolver,
 } from '@blockchain-lab-um/did-provider-key';
+import { IOIDCRPPlugin, OIDCRPPlugin } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  type IOIDCRPPlugin,
-  OIDCRPPlugin,
-} from '@blockchain-lab-um/oidc-rp-plugin';
-import {
-  type ICredentialPlugin,
-  type IDIDManager,
-  type IKeyManager,
-  type IResolver,
-  type TAgent,
+  ICredentialPlugin,
+  IDIDManager,
+  IKeyManager,
+  IResolver,
+  TAgent,
   createAgent,
 } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';

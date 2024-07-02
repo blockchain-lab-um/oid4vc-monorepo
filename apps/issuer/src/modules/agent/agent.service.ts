@@ -3,20 +3,20 @@ import {
   getDidKeyResolver,
 } from '@blockchain-lab-um/did-provider-key';
 import {
-  type IOIDCRPPlugin,
+  IOIDCRPPlugin,
   OIDCRPPlugin,
   isError,
   privateKeyToDid,
 } from '@blockchain-lab-um/oidc-rp-plugin';
 import { Injectable } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import {
-  type ICredentialPlugin,
-  type IDIDManager,
-  type IKeyManager,
-  type IResolver,
-  type MinimalImportableKey,
-  type TAgent,
+  ICredentialPlugin,
+  IDIDManager,
+  IKeyManager,
+  IResolver,
+  MinimalImportableKey,
+  TAgent,
   createAgent,
 } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
@@ -37,7 +37,7 @@ import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 import { DataSource } from 'typeorm';
 
 import {
-  type IConfig,
+  IConfig,
   loadSupportedCredentials,
 } from '../../config/configuration.js';
 

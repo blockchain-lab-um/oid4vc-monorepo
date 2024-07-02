@@ -1,19 +1,19 @@
 import {
-  type CredentialOffer,
-  type CredentialOfferRequest,
-  type CredentialRequest,
-  type SupportedCredential,
+  CredentialOffer,
+  CredentialOfferRequest,
+  CredentialRequest,
+  SupportedCredential,
   TOKEN_ERRORS,
-  type TokenRequest,
-  type TokenResponse,
+  TokenRequest,
+  TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import { qsCustomDecoder } from '@blockchain-lab-um/utils';
 import {
   FastifyAdapter,
-  type NestFastifyApplication,
+  NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { Test, type TestingModule } from '@nestjs/testing';
-import type { RawServerDefault } from 'fastify';
+import { Test, TestingModule } from '@nestjs/testing';
+import { RawServerDefault } from 'fastify';
 import qs from 'qs';
 import request from 'supertest';
 

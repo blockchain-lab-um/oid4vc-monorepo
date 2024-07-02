@@ -1,16 +1,16 @@
 import { DetailedError, isError } from '@blockchain-lab-um/oidc-rp-plugin';
-import type {
+import {
   AuthorizationResponse,
   PresentationDefinition,
 } from '@blockchain-lab-um/oidc-types';
 import { Injectable } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
-import type { AuthorizationRequest } from './app.interface.js';
-import type { IConfig } from './config/configuration.js';
-import type { AgentService } from './modules/agent/agent.service.js';
-import type { VerificationResults } from './modules/datastore/datastore.interface.js';
-import type { DatastoreService } from './modules/datastore/datastore.service.js';
+import { AuthorizationRequest } from './app.interface.js';
+import { IConfig } from './config/configuration.js';
+import { AgentService } from './modules/agent/agent.service.js';
+import { VerificationResults } from './modules/datastore/datastore.interface.js';
+import { DatastoreService } from './modules/datastore/datastore.service.js';
 
 @Injectable()
 export class AppService {

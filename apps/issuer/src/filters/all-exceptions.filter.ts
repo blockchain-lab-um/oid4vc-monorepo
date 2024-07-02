@@ -1,12 +1,12 @@
 import { DetailedError } from '@blockchain-lab-um/oidc-rp-plugin';
 import {
-  type ArgumentsHost,
+  ArgumentsHost,
   Catch,
-  type ExceptionFilter,
+  ExceptionFilter,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import type { FastifyReply } from 'fastify';
+import { FastifyReply } from 'fastify';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

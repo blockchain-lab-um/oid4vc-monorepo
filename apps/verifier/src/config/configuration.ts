@@ -1,4 +1,4 @@
-import type { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
+import { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 

@@ -1,8 +1,8 @@
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
-import type { IConfig } from '../../config/configuration.js';
-import type {
+import { IConfig } from '../../config/configuration.js';
+import {
   UserSession,
   UserSessionStore,
   VerificationResults,

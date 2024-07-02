@@ -1,24 +1,21 @@
-import {
-  type IOIDCRPPlugin,
-  OIDCRPPlugin,
-} from '@blockchain-lab-um/oidc-rp-plugin';
+import { IOIDCRPPlugin, OIDCRPPlugin } from '@blockchain-lab-um/oidc-rp-plugin';
 import { Injectable } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import {
-  type ICredentialPlugin,
-  type IDIDManager,
-  type IKeyManager,
-  type IResolver,
-  type TAgent,
+  ICredentialPlugin,
+  IDIDManager,
+  IKeyManager,
+  IResolver,
+  TAgent,
   createAgent,
 } from '@veramo/core';
 import {
   CredentialIssuerEIP712,
-  type ICredentialIssuerEIP712,
+  ICredentialIssuerEIP712,
 } from '@veramo/credential-eip712';
 import {
   CredentialIssuerLD,
-  type ICredentialIssuerLD,
+  ICredentialIssuerLD,
   LdDefaultContexts,
   VeramoEcdsaSecp256k1RecoverySignature2020,
   VeramoEd25519Signature2018,
@@ -41,7 +38,7 @@ import { Resolver } from 'did-resolver';
 import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 import { DataSource } from 'typeorm';
 
-import type { IConfig } from '../../config/configuration.js';
+import { IConfig } from '../../config/configuration.js';
 
 @Injectable()
 export class AgentService {

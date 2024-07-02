@@ -1,4 +1,4 @@
-import type { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
+import { AuthorizationResponse } from '@blockchain-lab-um/oidc-types';
 import {
   BadRequestException,
   Body,
@@ -10,9 +10,9 @@ import {
   Query,
 } from '@nestjs/common';
 
-import type { AuthorizationRequest } from './app.interface.js';
-import type { AppService } from './app.service.js';
-import type { VerificationResults } from './modules/datastore/datastore.interface.js';
+import { AuthorizationRequest } from './app.interface.js';
+import { AppService } from './app.service.js';
+import { VerificationResults } from './modules/datastore/datastore.interface.js';
 
 @Controller()
 export class AppController {

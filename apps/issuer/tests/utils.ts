@@ -3,14 +3,14 @@ import {
   isError,
   privateKeyToDid,
 } from '@blockchain-lab-um/oidc-rp-plugin';
-import type { MinimalImportableKey } from '@veramo/core';
+import { MinimalImportableKey } from '@veramo/core';
 import { bytesToBase64url, encodeBase64url } from '@veramo/utils';
 import elliptic from 'elliptic';
 import { sha256 } from 'ethereum-cryptography/sha256.js';
-import type { JWTPayload } from 'jose';
+import { JWTPayload } from 'jose';
 import { v4 as uuidv4 } from 'uuid';
 
-import type { Agent } from './testAgent.js';
+import { Agent } from './testAgent.js';
 
 const { ec: EC } = elliptic;
 

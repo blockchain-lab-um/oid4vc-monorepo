@@ -1,4 +1,4 @@
-import type { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
+import { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
 
 /**
  * This file is used to store environment variables that are used in the app.

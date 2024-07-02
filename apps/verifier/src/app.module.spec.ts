@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
-import type { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
+import { PresentationDefinition } from '@blockchain-lab-um/oidc-types';
 import {
   FastifyAdapter,
-  type NestFastifyApplication,
+  NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { Test, type TestingModule } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { PEX } from '@sphereon/pex';
-import type { RawServerDefault } from 'fastify';
+import { RawServerDefault } from 'fastify';
 import * as qs from 'qs';
 import request from 'supertest';
 
