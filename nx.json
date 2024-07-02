@@ -22,7 +22,7 @@
       "!{projectRoot}/dist/**/*",
       "!{projectRoot}/.docusaurus/**/*",
       "!{projectRoot}/.next/**/*",
-      "!{projectRoot}/jest.config.ts",
+      "!{projectRoot}/vitest.config.ts",
       "!{projectRoot}/.lintstagedrc.cjs",
       "!{projectRoot}/Dockerfile",
       "!{projectRoot}/.env.*"
@@ -43,16 +43,6 @@
       "inputs": ["default", "^production"],
       "dependsOn": ["^build"],
       "outputs": []
-    },
-    "test:ci": {
-      "inputs": ["default", "^production"],
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/coverage"]
-    },
-    "test:cron": {
-      "inputs": ["default", "^production"],
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/coverage"]
     }
   },
   "defaultBase": "develop"

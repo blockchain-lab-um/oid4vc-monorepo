@@ -6,7 +6,7 @@
       for all imports. Implies 'allowSyntheticDefaultImports'.
     */
     "target": "ES2020",
-    "module": "ES2022",
+    "module": "es2022",
     "moduleResolution": "Bundler",
 
     "strict": true,
@@ -20,6 +20,5 @@
     /* Stylize errors and messages using color and context. */
     "pretty": true
   },
-  "exclude": ["node_modules", "dist"],
-  "files": ["jest.d.ts"]
+  "exclude": ["node_modules", "dist"]
 }

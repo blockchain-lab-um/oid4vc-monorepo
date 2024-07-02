@@ -13,16 +13,13 @@ import {
   TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
-import { IConfig } from './config/configuration.js';
 import { AgentService } from './modules/agent/agent.service.js';
 import { DatastoreService } from './modules/datastore/datastore.service.js';
 
 @Injectable()
 export class AppService {
   constructor(
-    private configService: ConfigService<IConfig, true>,
     private dataStoreService: DatastoreService,
     private agentService: AgentService,
   ) {}

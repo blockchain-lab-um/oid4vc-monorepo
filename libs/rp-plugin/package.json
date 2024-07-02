@@ -13,10 +13,7 @@
     "clean": "rimraf dist",
     "compile": "tsup",
     "generate-plugin-schema": "pnpm veramo dev generate-plugin-schema",
-    "start": "veramo server",
-    "test": "jest",
-    "test:ci": "jest --coverage --silent",
-    "test:watch": "pnpm run test --watch --verbose"
+    "start": "veramo server"
   },
   "dependencies": {
     "@blockchain-lab-um/oidc-types": "0.0.8",
@@ -34,8 +31,6 @@
   },
   "devDependencies": {
     "@sphereon/ssi-types": "^0.11.0",
-    "@swc/core": "1.3.52",
-    "@swc/jest": "0.2.26",
     "@types/elliptic": "6.4.16",
     "@types/qs": "^6.9.7",
     "@veramo/cli": "5.4.1",

@@ -782,7 +782,7 @@ describe('Issuer controller', () => {
       it.todo('With authorization_code');
 
       it('With pre-authorization_code and user_pin', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -835,7 +835,7 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
     });
 
@@ -847,7 +847,7 @@ describe('Issuer controller', () => {
        * Invalid pre-authorized_code
        */
       it('With invalid pre-authorized_code', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -884,14 +884,14 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
 
       /**
        * Invalid user_pin
        */
       it('With invalid user_pin', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -940,14 +940,14 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
 
       /**
        * Missing pre-authorized_code
        */
       it('With missing pre-authorized_code', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -983,14 +983,14 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
 
       /**
        * Missing user_pin
        */
       it('With missing user_pin', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -1038,14 +1038,14 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
 
       /**
        * Unsupported grant_type (authorization_code)
        */
       it('With unsupported grant_type (authorization_code)', async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
         const credentialOfferRequestData: CredentialOfferRequest = {
           credentials: [
@@ -1080,7 +1080,7 @@ describe('Issuer controller', () => {
         });
 
         expect.assertions(3);
-        jest.spyOn(global.Math, 'random').mockRestore();
+        vi.spyOn(global.Math, 'random').mockRestore();
       });
     });
   });
