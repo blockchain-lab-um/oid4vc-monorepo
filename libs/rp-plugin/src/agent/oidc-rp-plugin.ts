@@ -781,7 +781,6 @@ export class OIDCRPPlugin implements IAgentPlugin {
           error: new DetailedError(
             'invalid_request',
             'Invalid or missing pre-authorized_code.',
-            // TODO: Those this error need have status code 401?
           ),
         };
       }
@@ -929,8 +928,8 @@ export class OIDCRPPlugin implements IAgentPlugin {
         // -> this throws an error for empty credentialSubject
         sub: subjectDid,
         credentialSubject: {
+          ...(credentialSubjectClaims as object),
           id: subjectDid,
-          ...(credentialSubjectClaims as object), // TODO: VALIDATE CLAIMS AGAINST SCHEMA
         },
       };
     } catch (e: any) {
