@@ -1,11 +1,11 @@
 FROM blockchain-lab-um/oid4vc-monorepo:latest as builder
 
-FROM node:20.15.0-alpine3.16
+FROM node:20.18.0-alpine3.16
 
 WORKDIR /app
 
 # Install pnpm
-RUN npm i -g pnpm@9.4.0
+RUN npm i -g pnpm@9.12.2
 
 COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
