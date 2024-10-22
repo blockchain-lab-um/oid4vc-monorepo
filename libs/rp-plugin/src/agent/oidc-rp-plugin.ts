@@ -615,7 +615,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
     const exampleMetadata = {
       credential_issuer: this.pluginConfig.url,
       issuer: this.pluginConfig.url,
-      authorization_endpoint: '',
+      authorization_endpoint: `${this.pluginConfig.url}/authorization`,
       token_endpoint: `${this.pluginConfig.url}/token`,
       credential_endpoint: `${this.pluginConfig.url}/credential`,
       response_types_supported: [
