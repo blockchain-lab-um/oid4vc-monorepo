@@ -4,6 +4,7 @@ import {
   type CredentialResponse,
   type Credentials,
   type IssuerServerMetadata,
+  OPMetadata,
   TOKEN_ERRORS,
   type TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
@@ -76,6 +77,8 @@ export class OIDCRPPlugin implements IAgentPlugin {
     handleAuthorizationResponse: this.handleAuthorizationResponse.bind(this),
     handleIssuerServerMetadataRequest:
       this.handleIssuerServerMetadataRequest.bind(this),
+    handleAuathorizationServerMetadataRequest:
+      this.handleAuathorizationServerMetadataRequest.bind(this),
     createCredentialOfferRequest: this.createCredentialOfferRequest.bind(this),
     isValidTokenRequest: this.isValidTokenRequest.bind(this),
     handlePreAuthorizedCodeTokenRequest:
@@ -613,13 +616,27 @@ export class OIDCRPPlugin implements IAgentPlugin {
     Result<IssuerServerMetadata>
   > {
     // TODO: Make this configurable through params/configuration
-    const metadata = {
+    const metadata: IssuerServerMetadata = {
       credential_issuer: this.pluginConfig.url,
-      issuer: this.pluginConfig.url,
-      authorization_endpoint: `${this.pluginConfig.url}/authorization`,
-      token_endpoint: `${this.pluginConfig.url}/token`,
+      authorization_server: `${this.pluginConfig.url}/authorization`,
       credential_endpoint: `${this.pluginConfig.url}/credential`,
       deferred_credential_endpoint: `${this.pluginConfig.url}/credential-deffered`,
+      credentials_supported: this.pluginConfig.supported_credentials ?? [],
+    };
+
+    return { success: true, data: metadata };
+  }
+
+  public async handleAuathorizationServerMetadataRequest(): Promise<
+    Result<OPMetadata>
+  > {
+    const metadata: OPMetadata = {
+      issuer: this.pluginConfig.url,
+      authorization_endpoint: `${this.pluginConfig.url}/authorization/auth`,
+      token_endpoint: `${this.pluginConfig.url}/authorization/token`,
+      presentation_definition_endpoint: '', // NOTE: Non-standard. Used in EBSI.
+      jwks_uri: `${this.pluginConfig.url}/authorization/jwks`,
+      scopes_supported: ['openid'],
       response_types_supported: [
         'code',
         'id_token',
@@ -628,7 +645,25 @@ export class OIDCRPPlugin implements IAgentPlugin {
         'code token',
         'code id_token token',
       ],
-      credentials_supported: this.pluginConfig.supported_credentials ?? [],
+      response_modes_supported: ['query', 'fragment'], // NOTE: Default values
+      grant_types_supported: ['authorization_code', 'implicit'], // NOTE: Default values
+      subject_types_supported: ['public'],
+      id_token_signing_alg_values_supported: ['RS256'],
+      request_object_signing_alg_values_supported: ['none', 'RS256'],
+      request_parameter_supported: false, // NOTE: Default value
+      request_uri_parameter_supported: true, // NOTE: Default value
+      vp_formats_supported: {
+        jwt_vp_json: {
+          alg_values_supported: ['ES256K', 'ES256K-R', 'EdDSA'],
+        },
+      }, // NOTE: Default value
+      subject_syntax_types_supported: ['did'],
+      subject_syntax_types_discriminations: [], // NOTE: Non-standard. Used in EBSI.
+      redirect_uris: [], // FIXME: Define
+      token_endpoint_auth_methods_supported: ['private_key_jwt'],
+      request_authentication_methods_supported: {},
+      subject_trust_frameworks_supported: ['ebsi'],
+      id_token_types_supported: ['subject_signed_id_token'],
     };
 
     return { success: true, data: metadata };

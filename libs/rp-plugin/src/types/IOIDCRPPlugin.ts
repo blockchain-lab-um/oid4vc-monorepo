@@ -1,6 +1,7 @@
 import type {
   CredentialResponse,
   IssuerServerMetadata,
+  OPMetadata,
   TokenResponse,
 } from '@blockchain-lab-um/oidc-types';
 import type {
@@ -37,6 +38,7 @@ export interface IOIDCRPPlugin extends IPluginMethodMap {
     context: OIDCRPAgentContext,
   ): Promise<Result<boolean>>;
   handleIssuerServerMetadataRequest(): Promise<Result<IssuerServerMetadata>>;
+  handleAuathorizationServerMetadataRequest(): Promise<Result<OPMetadata>>;
   createCredentialOfferRequest(
     args: CreateCredentialOfferRequestArgs,
   ): Promise<Result<CreateCredentialOfferRequestResposne>>;
