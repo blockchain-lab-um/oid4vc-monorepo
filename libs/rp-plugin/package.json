@@ -16,7 +16,7 @@
     "start": "veramo server"
   },
   "dependencies": {
-    "@blockchain-lab-um/oidc-types": "0.0.8",
+    "@blockchain-lab-um/oidc-types": "0.1.0",
     "@sphereon/pex": "2.0.1",
     "@veramo/core": "6.0.0",
     "@veramo/credential-eip712": "6.0.0",

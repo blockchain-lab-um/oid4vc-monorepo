@@ -129,7 +129,6 @@ export class AgentService {
         }),
         new OIDCRPPlugin({
           url: this.configService.get<string>('VERIFIER_URL'),
-          db_secret: this.configService.get<string>('VERIFIER_DB_SECRET'),
           supported_curves:
             this.configService.get<string[]>('SUPPORTED_CURVES'),
           supported_did_methods: this.configService.get<string[]>(

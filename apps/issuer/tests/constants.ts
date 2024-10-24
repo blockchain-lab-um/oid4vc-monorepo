@@ -8,9 +8,10 @@ export const TEST_SUPPORTED_CURVES = ['secp256k1', 'P-256', 'P-384', 'P-521'];
 export const TEST_SUPPORTED_DIGITAL_SIGNATURES = ['ES256K'];
 export const TEST_INFURA_PROJECT_ID = '0ec03090465d400c988a14831aacfe37';
 export const TEST_METADATA = {
+  authorization_endpoint: 'http://127.0.0.1:3003/authorization',
   credential_issuer: 'http://127.0.0.1:3003',
+  deferred_credential_endpoint: 'http://127.0.0.1:3003/credential-deffered',
   issuer: 'http://127.0.0.1:3003',
-  authorization_endpoint: '',
   token_endpoint: 'http://127.0.0.1:3003/token',
   credential_endpoint: 'http://127.0.0.1:3003/credential',
   response_types_supported: [

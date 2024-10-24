@@ -612,12 +612,14 @@ export class OIDCRPPlugin implements IAgentPlugin {
   public async handleIssuerServerMetadataRequest(): Promise<
     Result<IssuerServerMetadata>
   > {
-    const exampleMetadata = {
+    // TODO: Make this configurable through params/configuration
+    const metadata = {
       credential_issuer: this.pluginConfig.url,
       issuer: this.pluginConfig.url,
       authorization_endpoint: `${this.pluginConfig.url}/authorization`,
       token_endpoint: `${this.pluginConfig.url}/token`,
       credential_endpoint: `${this.pluginConfig.url}/credential`,
+      deferred_credential_endpoint: `${this.pluginConfig.url}/credential-deffered`,
       response_types_supported: [
         'code',
         'id_token',
@@ -629,7 +631,7 @@ export class OIDCRPPlugin implements IAgentPlugin {
       credentials_supported: this.pluginConfig.supported_credentials ?? [],
     };
 
-    return { success: true, data: exampleMetadata };
+    return { success: true, data: metadata };
   }
 
   public async createCredentialOfferRequest(
