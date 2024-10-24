@@ -48,7 +48,7 @@ importers:
         specifier: 1.1.0-beta.1
         version: 1.1.0-beta.1(encoding@0.1.13)
       '@blockchain-lab-um/oidc-rp-plugin':
-        specifier: 0.0.12
+        specifier: 0.0.13
         version: link:../../libs/rp-plugin
       '@blockchain-lab-um/oidc-types':
         specifier: 0.1.0
@@ -211,7 +211,7 @@ importers:
   apps/verifier:
     dependencies:
       '@blockchain-lab-um/oidc-rp-plugin':
-        specifier: 0.0.12
+        specifier: 0.0.13
         version: link:../../libs/rp-plugin
       '@blockchain-lab-um/oidc-types':
         specifier: 0.1.0
